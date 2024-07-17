@@ -6,7 +6,7 @@ This project is a frontend challenge showcase that displays various mini-project
 
 - Displays a list of mini-projects with links to each project
 - Dark mode toggle for the main page
-- Responsive design
+
 
 ## Demo
 
@@ -70,4 +70,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## Contact
 
-For any questions or inquiries, please contact me at [your-email@example.com].
+For any questions or inquiries, please contact me at [https://github.com/MDAEJA/Assigment_javascript_mini-challenge.git].
