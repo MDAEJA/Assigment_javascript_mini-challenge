@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main-div{
+    border: 2px solid black;
+    margin: 10px 20%;
+    text-align: center;
+    padding: 10px 10px;
+}
+.second-text::before{
+    border: 2px solid black;
+}

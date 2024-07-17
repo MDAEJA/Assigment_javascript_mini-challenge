@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Case Transformer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px;
+        }
+        .output {
+            background-color: #f7f7d4;
+            padding: 10px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="inputString" placeholder="Enter a string" oninput="transformString()">
+        <div>
+            <div>Lower Case</div>
+            <div id="lowerCase" class="output"></div>
+        </div>
+        <div>
+            <div>Upper Case</div>
+            <div id="upperCase" class="output"></div>
+        </div>
+        <div>
+            <div>Camel Case</div>
+            <div id="camelCase" class="output"></div>
+        </div>
+        <div>
+            <div>Pascal Case</div>
+            <div id="pascalCase" class="output"></div>
+        </div>
+        <div>
+            <div>Snake Case</div>
+            <div id="snakeCase" class="output"></div>
+        </div>
+        <div>
+            <div>Kebab Case</div>
+            <div id="kebabCase" class="output"></div>
+        </div>
+        <div>
+            <div>Trim</div>
+            <div id="trimCase" class="output"></div>
+        </div>
+    </div>
+
+    <script>
+        function transformString() {
+            const input = document.getElementById('inputString').value;
+
+            document.getElementById('lowerCase').innerText = toLowerCase(input);
+            document.getElementById('upperCase').innerText = toUpperCase(input);
+            document.getElementById('camelCase').innerText = toCamelCase(input);
+            document.getElementById('pascalCase').innerText = toPascalCase(input);
+            document.getElementById('snakeCase').innerText = toSnakeCase(input);
+            document.getElementById('kebabCase').innerText = toKebabCase(input);
+            document.getElementById('trimCase').innerText = toTrim(input);
+        }
+
+        function toLowerCase(str) {
+            return str.toLowerCase();
+        }
+
+        function toUpperCase(str) {
+            return str.toUpperCase();
+        }
+
+        function toCamelCase(str) {
+            return str
+                .replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+                    if (+match === 0) return "";
+                    return index === 0 ? match.toLowerCase() : match.toUpperCase();
+                });
+        }
+
+        function toPascalCase(str) {
+            return str
+                .replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match) {
+                    if (+match === 0) return "";
+                    return match.toUpperCase();
+                });
+        }
+
+        function toSnakeCase(str) {
+            return str
+                .replace(/\s+/g, '_')
+                .toLowerCase();
+        }
+
+        function toKebabCase(str) {
+            return str
+                .replace(/\s+/g, '-')
+                .toLowerCase();
+        }
+
+        function toTrim(str) {
+            return str.replace(/\s+/g, '');
+        }
+    </script>
+</body>
+</html>

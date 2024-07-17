@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .strength-meter {
+            display: flex;
+            margin-top: 10px;
+        }
+        .strength-meter div {
+            flex: 1;
+            height: 10px;
+            margin: 0 2px;
+            background-color: #ddd;
+        }
+        .strength-meter div.active-weak {
+            background-color: red;
+        }
+        .strength-meter div.active-moderate {
+            background-color: orange;
+        }
+        .strength-meter div.active-strong {
+            background-color: green;
+        }
+        .strength-text {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .criteria {
+            color: gray;
+        }
+        .criteria.active {
+            color: green;
+        }
+        #copyButton {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #copyButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="password" id="password" placeholder="Enter the password" oninput="checkPasswordStrength()">
+        <div>
+            <span id="lowercase" class="criteria">Lowercase</span>
+            <span id="uppercase" class="criteria">Uppercase</span>
+            <span id="number" class="criteria">Number</span>
+            <span id="symbol" class="criteria">Symbols</span>
+        </div>
+        <div class="strength-meter">
+            <div id="strength-1"></div>
+            <div id="strength-2"></div>
+            <div id="strength-3"></div>
+            <div id="strength-4"></div>
+        </div>
+        <div id="charCount">Password has 0 chars</div>
+        <div id="strengthResult" class="strength-text">Your password is Weak</div>
+        <button id="copyButton" onclick="copyPassword()">Copy Password</button>
+    </div>
+
+    <script>
+        function checkPasswordStrength() {
+            const password = document.getElementById('password').value;
+            const criteria = {
+                lowercase: /[a-z]/.test(password),
+                uppercase: /[A-Z]/.test(password),
+                number: /[0-9]/.test(password),
+                symbol: /[^a-zA-Z0-9]/.test(password),
+            };
+
+            const criteriaKeys = Object.keys(criteria);
+            criteriaKeys.forEach(key => {
+                document.getElementById(key).classList.toggle('active', criteria[key]);
+            });
+
+            const strengthMeter = document.querySelectorAll('.strength-meter div');
+            const activeClass = Object.values(criteria).filter(Boolean).length >= 3 ? 'active-moderate' : 'active-weak';
+            const strengthClass = password.length >= 8 && Object.values(criteria).every(Boolean) ? 'active-strong' : activeClass;
+            strengthMeter.forEach((div, index) => {
+                div.className = '';
+                if (index < Object.values(criteria).filter(Boolean).length) {
+                    div.classList.add(strengthClass);
+                }
+            });
+
+            const charCount = password.length;
+            document.getElementById('charCount').innerText = `Password has ${charCount} chars`;
+
+            let strength = 'Weak';
+            if (charCount >= 8 && Object.values(criteria).every(Boolean)) {
+                strength = 'Strong';
+            } else if (charCount >= 6 && Object.values(criteria).filter(Boolean).length >= 3) {
+                strength = 'Moderate';
+            }
+
+            document.getElementById('strengthResult').innerText = `Your password is ${strength}`;
+        }
+
+        function copyPassword() {
+            const password = document.getElementById('password').value;
+            navigator.clipboard.writeText(password).then(() => {
+                alert('Password copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>

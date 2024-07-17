@@ -1,0 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.counter-div{
+    /* margin: auto auto; */
+    margin: 5%  20%;
+    cursor: pointer;
+    
+}
